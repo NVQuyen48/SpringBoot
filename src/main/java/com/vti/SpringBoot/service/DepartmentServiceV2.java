@@ -1,13 +1,10 @@
 package com.vti.SpringBoot.service;
 
-import com.vti.SpringBoot.repository.DepartmentRepositoryV1;
-import com.vti.SpringBoot.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

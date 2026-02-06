@@ -40,4 +40,16 @@ public class DepartmentController {
     Department getDepartment(@PathVariable("departmentId") String userId) {
         return departmentService.getDepartmentById(userId);
     }
+
+    @PutMapping("/{departmentCode}")
+    public Department updateDepartment(@PathVariable("departmentCode")
+                                       String departmentCode, @RequestBody Department res) {
+        return departmentService.updateDepartment(departmentCode, res);
+
+    }
+
+    @DeleteMapping("/{departmentCode}")
+    public void deleteDepartment(@PathVariable String departmentCode) {
+        departmentService.deleteDepartment(departmentCode);
+    }
 }
