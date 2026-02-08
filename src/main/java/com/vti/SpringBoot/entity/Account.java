@@ -1,7 +1,6 @@
 package com.vti.SpringBoot.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,10 @@ public class Account {
     private String email;
     private String userName;
     private String fullName;
-    private int departmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "departmen_id", nullable = false)
+    private Department department;
     private int positionId;
     private Date createdDate;
 

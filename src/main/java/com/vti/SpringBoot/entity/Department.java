@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Entity
 
+
 public class Department {
     @Id
     private String id;
