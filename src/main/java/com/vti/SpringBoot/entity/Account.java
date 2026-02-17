@@ -17,9 +17,13 @@ public class Account {
     private String fullName;
 
     @ManyToOne
-    @JoinColumn(name = "departmen_id", nullable = false)
+    @JoinColumn(name = "department_id")
     private Department department;
-    private int positionId;
+
+    @OneToOne
+    @JoinColumn(name = "position_id")
+    private Position position;
     private Date createdDate;
 
+ 
 }

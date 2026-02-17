@@ -19,8 +19,7 @@ public class DepartmentService {
 
     public Department createDepartment(Department res) {
         Department department = new Department();
-        department.setId(UUID.randomUUID().toString());
-        department.setDepartmentCode(res.getDepartmentCode());
+        department.setDepartmentId(res.getDepartmentId());
         department.setDepartmentName(res.getDepartmentName());
 
         return iDepartmentRepository.save(department);
@@ -38,7 +37,6 @@ public class DepartmentService {
         Department department = iDepartmentRepository.findById(departmentCode)
                 .orElseThrow(() -> new RuntimeException("Department not found"));
 
-        department.setDepartmentCode(res.getDepartmentCode());
         department.setDepartmentName(res.getDepartmentName());
         return iDepartmentRepository.save(department);
 
