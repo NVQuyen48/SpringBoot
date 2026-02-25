@@ -7,6 +7,7 @@ import com.vti.SpringBoot.repository.IAccountRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,5 @@ public class AccountService {
         Account account = (Account) iAccountRepository.findByUsername(userName);
         return AccountMapper.toDTO(account);
     }
-
 
 }

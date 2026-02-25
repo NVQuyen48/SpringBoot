@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Query("Select a from Account a where a.userName = :userName")
@@ -16,5 +17,7 @@ public interface IAccountRepository extends JpaRepository<Account, Integer> {
     @Query("select a from Account a where a.userName like  %?1%")
     Page<Account> findByUsernameLike(String userName, Pageable pageable);
 
+    boolean existsAccountByUserName(String userName);
 
+    Optional<Account> findAccountByUserName(String userName);
 }

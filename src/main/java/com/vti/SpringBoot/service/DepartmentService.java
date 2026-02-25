@@ -5,6 +5,8 @@ import com.vti.SpringBoot.repository.IDepartmentRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,11 @@ import java.util.UUID;
 public class DepartmentService {
     IDepartmentRepository iDepartmentRepository;
 
+    public Page<Department> findAllDepartments(Pageable pageable) {
+        return iDepartmentRepository.findAll(pageable);
+    }
+
+    ;
 
     public Department createDepartment(Department res) {
         Department department = new Department();

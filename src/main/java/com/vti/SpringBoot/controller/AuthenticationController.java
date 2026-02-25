@@ -1,34 +1,38 @@
 package com.vti.SpringBoot.controller;
 
-import com.vti.SpringBoot.dto.request.ApiResponse;
-import com.vti.SpringBoot.dto.request.AuthenticationRequest;
-import com.vti.SpringBoot.dto.response.AuthenticationResponse;
-import com.vti.SpringBoot.service.AuthenticationService;
-import lombok.AccessLevel;
+import com.vti.SpringBoot.dto.request.LoginRequest;
+import com.vti.SpringBoot.dto.response.AuthResponse;
+import com.vti.SpringBoot.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AuthenticationController {
-    AuthenticationService authenticationService;
 
-    @PostMapping("/log-in")
-    ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest res) {
-        boolean result = authenticationService.authenticated(res);
-        return ApiResponse.<AuthenticationResponse>builder()
-                .result(AuthenticationResponse.builder()
-                        .authenticated(result)
-                        .build())
-                .build();
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @PostMapping("/login")
+    public AuthResponse login(@RequestBody LoginRequest request) {
+
+        // xác thực username & password
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
+        );
+
+        // tạo token
+        String token = jwtUtil.generateToken(request.getUsername());
+
+        return new AuthResponse(token);
     }
-
 }
